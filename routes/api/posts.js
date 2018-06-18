@@ -50,6 +50,7 @@ router.post(
 //@access public
 router.get("/", (req, res) => {
   Post.find({})
+    .populate("user", ["name", "avatar"])
     .sort({ date: "desc" })
     .then(posts => {
       res.json(posts);

@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
+var cors = require("cors");
 
 //routes
 const users = require("./routes/api/users");
@@ -12,7 +13,7 @@ var app = express();
 //bodyparser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+app.use(cors());
 //mongodb
 const db = require("./config/keys").mongoURI;
 //connect
