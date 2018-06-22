@@ -61,3 +61,41 @@ export const deleteaccount = () => dispatch => {
       .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
   }
 };
+//add experience
+export const addExperience = (expdata, history) => dispatch => {
+  axios
+    .post("/api/profile/experience", expdata)
+    .then(res => history.push("/dashboard"))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+//add education
+export const addEducation = (edudata, history) => dispatch => {
+  axios
+    .post("/api/profile/education", edudata)
+    .then(res => history.push("/dashboard"))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+//delete experience
+export const deleteExperience = id => dispatch => {
+  axios
+    .delete("/api/profile/experience/" + id)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+//delete education
+export const deleteEducation = id => dispatch => {
+  axios
+    .delete("/api/profile/education/" + id)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};

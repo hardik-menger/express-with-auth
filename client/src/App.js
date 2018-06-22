@@ -16,6 +16,8 @@ import Dashboard from "./components/dashboard/dashboard";
 import PrivateRoute from "./components/common/privateroute";
 import CreateProfile from "./components/create-profile/createprofile";
 import EditProfile from "./components/edit-profile/editprofile";
+import AddExperience from "./components/add-credentials/AddExperience";
+import AddEducation from "./components/add-credentials/AddEducation";
 if (localStorage.jwttoken) {
   setAuthtoken(localStorage.jwttoken);
   const user = jwt_decode(localStorage.jwttoken);
@@ -58,6 +60,22 @@ class App extends Component {
                   exact
                   path="/edit-profile"
                   component={EditProfile}
+                />
+              </Switch>
+              <Switch>
+                {" "}
+                <PrivateRoute
+                  exact
+                  path="/add-experience"
+                  component={AddExperience}
+                />
+              </Switch>
+              <Switch>
+                {" "}
+                <PrivateRoute
+                  exact
+                  path="/add-education"
+                  component={AddEducation}
                 />
               </Switch>
             </div>

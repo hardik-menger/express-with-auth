@@ -8,7 +8,7 @@ module.exports = function validateExperienceInput(data) {
   data.degree = !isEmpty(data.degree) ? data.degree : "";
   data.fieldofstudy = !isEmpty(data.fieldofstudy) ? data.fieldofstudy : "";
   data.from = !isEmpty(data.from) ? data.from : "";
-  data.to = !isEmpty(data.to) ? data.to : "";
+
   if (Validator.isEmpty(data.school)) {
     errors.school = "School field is required";
   }
@@ -20,12 +20,11 @@ module.exports = function validateExperienceInput(data) {
   if (Validator.isEmpty(data.fieldofstudy)) {
     errors.fieldofstudy = "Field of study field is required";
   }
-  if (!data.from) {
+
+  if (Validator.isEmpty(data.from)) {
     errors.from = "From date field is required";
   }
-  if (!data.to) {
-    errors.to = "To date field is required";
-  }
+
   return {
     errors,
     isValid: isEmpty(errors)
