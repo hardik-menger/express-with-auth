@@ -14,6 +14,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 import Dashboard from "./components/dashboard/dashboard";
 import PrivateRoute from "./components/common/privateroute";
+import CreateProfile from "./components/create-profile/createprofile";
+import EditProfile from "./components/edit-profile/editprofile";
 if (localStorage.jwttoken) {
   setAuthtoken(localStorage.jwttoken);
   const user = jwt_decode(localStorage.jwttoken);
@@ -41,6 +43,22 @@ class App extends Component {
               <Switch>
                 {" "}
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              </Switch>
+              <Switch>
+                {" "}
+                <PrivateRoute
+                  exact
+                  path="/create-profile"
+                  component={CreateProfile}
+                />
+              </Switch>
+              <Switch>
+                {" "}
+                <PrivateRoute
+                  exact
+                  path="/edit-profile"
+                  component={EditProfile}
+                />
               </Switch>
             </div>
             <Footer />

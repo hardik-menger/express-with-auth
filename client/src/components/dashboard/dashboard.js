@@ -1,50 +1,53 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getcurrentprofile } from "../../actions/profileaction";
-import "./dashboard.css";
+import { getcurrentprofile, deleteaccount } from "../../actions/profileaction";
+import Spinner from "../common/spinner";
+import ProfileActions from "./profileactions";
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getcurrentprofile();
+  }
+  onDeleteClick(e) {
+    this.props.deleteaccount();
   }
   render() {
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
     let dashboardcontent;
     if (profile === null || loading) {
-      dashboardcontent = (
-        <div className="wrapper">
-          <div className="lds-roller">
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-          </div>
-        </div>
-      );
+      dashboardcontent = <Spinner />;
     } else {
       //check if profile exists
-      console.log(user.name);
       if (Object.keys(profile).length > 0) {
         //profile exists
-        dashboardcontent = <h4>profile</h4>;
+        dashboardcontent = (
+          <div>
+            <h4>
+              Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+            </h4>
+            <ProfileActions />
+            <div style={{ marginBottom: "60px" }} />
+            <button
+              onClick={this.onDeleteClick.bind(this)}
+              className="btn btn-danger"
+            >
+              Delete My Account
+            </button>
+          </div>
+        );
       } else {
         //doesnt exist
-        dashboardcontent = <h4>profile</h4>;
+        dashboardcontent = (
+          <div>
+            <p className="lead text-muted">welcome {user.name}</p>
+            <h4>You have not created your profile</h4>
+            <Link to="/create-profile" className="btn btn-lg btn-info">
+              Create Profile
+            </Link>
+          </div>
+        );
       }
-      dashboardcontent = (
-        <div>
-          <p className="lead text-muted">welcome {user.name}</p>
-          <h4>You have not created your profile</h4>
-          <Link to="/create-profile" className="btn btn-lg btn-info">
-            Create Profile
-          </Link>
-        </div>
-      );
     }
     return (
       <div className="container">
@@ -60,5 +63,5 @@ const mapStateToProps = state => {
 };
 export default connect(
   mapStateToProps,
-  { getcurrentprofile }
+  { getcurrentprofile, deleteaccount }
 )(Dashboard);

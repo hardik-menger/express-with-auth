@@ -1,5 +1,12 @@
 import axios from "axios";
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE } from "./types";
+import {
+  GET_PROFILE,
+  PROFILE_LOADING,
+  CLEAR_CURRENT_PROFILE,
+  SET_PROFILE,
+  GET_ERRORS,
+  SET_CURRENT_USER
+} from "./types";
 
 //get current profile
 export const getcurrentprofile = () => dispatch => {
@@ -7,10 +14,14 @@ export const getcurrentprofile = () => dispatch => {
   axios
     .get("/api/profile")
     .then(res => {
-      console.log(res.data);
       return dispatch({ type: GET_PROFILE, payload: res.data });
     })
-    .catch(err => dispatch({ type: GET_PROFILE, payload: {} }));
+    .catch(err => {
+      dispatch({
+        type: GET_PROFILE,
+        payload: {}
+      });
+    });
 };
 //loading profile
 export const setprofileloading = () => {
@@ -23,4 +34,30 @@ export const clearcurrentprofile = () => {
   return {
     type: CLEAR_CURRENT_PROFILE
   };
+};
+//set profile
+export const createProfile = (data, history) => dispatch => {
+  axios
+    .post("/api/profile", data)
+    .then(profile => {
+      history.push("/dashboard");
+      return dispatch({ type: SET_PROFILE, payload: profile.data });
+    })
+    .catch(err => {
+      console.log(err);
+      return dispatch({ type: GET_ERRORS, payload: err.response.data });
+    });
+};
+export const deleteaccount = () => dispatch => {
+  if (window.confirm("Are you sure? this can not be undone..")) {
+    axios
+      .delete("/api/profile")
+      .then(res =>
+        dispatch({
+          type: SET_CURRENT_USER,
+          payload: {}
+        })
+      )
+      .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+  }
 };

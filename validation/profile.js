@@ -20,32 +20,32 @@ module.exports = function validateProfileInput(data) {
     errors.skills = "skills is required";
   }
   if (!isEmpty(data.website)) {
-    if (!isURL(data.website)) {
+    if (!Validator.isURL(data.website)) {
       errors.website = "Not a valid URL";
     }
   }
   if (!isEmpty(data.twitter)) {
-    if (!isURL(data.twitter)) {
+    if (!Validator.isURL(data.twitter)) {
       errors.twitter = "Not a valid URL";
     }
   }
   if (!isEmpty(data.youtube)) {
-    if (!isURL(data.youtube)) {
+    if (!Validator.isURL(data.youtube)) {
       errors.website = "Not a valid URL";
     }
   }
   if (!isEmpty(data.facebook)) {
-    if (!isURL(data.facebook)) {
+    if (!Validator.isURL(data.facebook)) {
       errors.facebook = "Not a valid URL";
     }
   }
   if (!isEmpty(data.linkedin)) {
-    if (!isURL(data.linkedin)) {
+    if (!Validator.isURL(data.linkedin)) {
       errors.linkedin = "Not a valid URL";
     }
   }
   if (!isEmpty(data.instagram)) {
-    if (!isURL(data.instagram)) {
+    if (!Validator.isURL(data.instagram)) {
       errors.instagram = "Not a valid URL";
     }
   }
