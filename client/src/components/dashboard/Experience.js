@@ -8,17 +8,17 @@ class Experience extends Component {
   };
   render() {
     const experience = this.props.experience.map(exp => (
-      <tr key={exp.id}>
+      <tr key={exp._id}>
         <td>{exp.company}</td>
         <td>{exp.title}</td>
         <td>
-          <Moment format="YYYY/MM/DD">{exp.from}</Moment>-{" "}
+          <Moment format="YYYY/MM/DD">{exp.from}</Moment>-
           {exp.to === null ? (
             " Current"
           ) : (
             <Moment format="YYYY/MM/DD">{exp.to}</Moment>
           )}
-        </td>{" "}
+        </td>
         <td>
           <button
             className="btn btn-danger"

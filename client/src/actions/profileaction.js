@@ -5,7 +5,8 @@ import {
   CLEAR_CURRENT_PROFILE,
   SET_PROFILE,
   GET_ERRORS,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  GET_PROFILES
 } from "./types";
 
 //get current profile
@@ -97,5 +98,21 @@ export const deleteEducation = id => dispatch => {
         payload: res.data
       })
     )
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+//get profiles
+export const getprofiles = () => dispatch => {
+  dispatch(setprofileloading());
+  axios
+    .get("/api/profile/all")
+    .then(res => dispatch({ type: GET_PROFILES, payload: res.data }))
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+//get prof by handle
+export const getProfileByHandle = handle => dispatch => {
+  dispatch(setprofileloading());
+  axios
+    .get(`/api/profile/handle/${handle}`)
+    .then(res => dispatch({ type: GET_PROFILE, payload: res.data }))
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };

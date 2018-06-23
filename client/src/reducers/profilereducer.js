@@ -2,7 +2,8 @@ import {
   GET_PROFILE,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
-  SET_PROFILE
+  SET_PROFILE,
+  GET_PROFILES
 } from "../actions/types";
 const initialstate = {
   profile: null,
@@ -18,8 +19,9 @@ export default (state = initialstate, action) => {
     case CLEAR_CURRENT_PROFILE:
       return { ...state, profile: null };
     case SET_PROFILE:
-      console.log(action.payload);
       return { ...state, profile: action.payload };
+    case GET_PROFILES:
+      return { ...state, loading: false, profiles: action.payload };
     default:
       return state;
   }
