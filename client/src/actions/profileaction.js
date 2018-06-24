@@ -45,7 +45,6 @@ export const createProfile = (data, history) => dispatch => {
       return dispatch({ type: SET_PROFILE, payload: profile.data });
     })
     .catch(err => {
-      console.log(err);
       return dispatch({ type: GET_ERRORS, payload: err.response.data });
     });
 };

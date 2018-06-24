@@ -10,7 +10,6 @@ import {
 } from "./types";
 
 export const addpost = postdata => dispatch => {
-  dispatch({ type: POST_LOADING });
   axios
     .post("/api/posts", postdata)
     .then(res => dispatch({ type: ADD_POST, payload: res.data }))
@@ -25,12 +24,10 @@ export const getposts = () => dispatch => {
     .catch(err => dispatch({ type: GET_POSTS, payload: {} }));
 };
 export const getpost = id => dispatch => {
-  console.log(id);
   dispatch({ type: POST_LOADING });
   axios
     .get(`/api/posts/${id}`)
     .then(res => {
-      console.log(res.data);
       return dispatch({ type: GET_POST, payload: res.data });
     })
     .catch(err => dispatch({ type: GET_POST, payload: null }));

@@ -11,7 +11,6 @@ export const registeruser = (userdata, history) => dispatch => {
       history.push("/login");
     })
     .catch(err => {
-      console.log(err.response.data);
       return dispatch({
         type: GET_ERRORS,
         payload: err.response.data
