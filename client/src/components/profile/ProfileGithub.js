@@ -26,31 +26,36 @@ class ProfileGithub extends Component {
   }
   render() {
     const { repos } = this.state;
-    const repoitems = repos.map(repo => (
-      <div key={repo.id} className="card card-body mb-2">
-        <div className="row">
-          <div className="col-md-6">
-            <h4>
-              <Link to={repo.html_url} className="text-info" target="_blank">
-                {repo.name}
-              </Link>
-            </h4>
-            <p>{repo.description}</p>
-          </div>
-          <div className="col-md-6">
-            <span className="badge badge-info mr-1">
-              Stars: {repo.stargazers_count}
-            </span>
-            <span className="badge badge-secondary mr-1">
-              Watchers: {repo.watchers_count}
-            </span>
-            <span className="badge badge-success">
-              Forks: {repo.forks_count}
-            </span>
+    let repoitems;
+    if (repos.length > 0) {
+      repoitems = repos.map(repo => (
+        <div key={repo.id} className="card card-body mb-2">
+          <div className="row">
+            <div className="col-md-6">
+              <h4>
+                <Link to={repo.html_url} className="text-info" target="_blank">
+                  {repo.name}
+                </Link>
+              </h4>
+              <p>{repo.description}</p>
+            </div>
+            <div className="col-md-6">
+              <span className="badge badge-info mr-1">
+                Stars: {repo.stargazers_count}
+              </span>
+              <span className="badge badge-secondary mr-1">
+                Watchers: {repo.watchers_count}
+              </span>
+              <span className="badge badge-success">
+                Forks: {repo.forks_count}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    ));
+      ));
+    } else {
+      repoitems = <h4>No Repositories found for this username</h4>;
+    }
     return (
       <div ref="myRef">
         <hr />

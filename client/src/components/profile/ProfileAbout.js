@@ -4,7 +4,6 @@ import isEmpty from "../../utils/validation";
 class ProfileAbout extends Component {
   render() {
     const { profile } = this.props;
-    console.log(profile);
     // Get first name
     const firstName = profile.user.name.trim().split(" ")[0];
 

@@ -8,20 +8,23 @@ import ProfileGithub from "./ProfileGithub";
 import Spinner from "../common/spinner";
 import { getProfileByHandle } from "../../actions/profileaction";
 class Profile extends Component {
+  count = 0;
+  constructor(props) {
+    super(props);
+    this.state = {
+      profile: this.props.profile
+    };
+    // props.getProfileByHandle(props.match.params.handle);
+  }
   componentDidMount() {
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
     }
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.profile.profile === null && this.props.profile.loading) {
-      this.props.history.push("/not-found");
-    }
-  }
   render() {
     const { profile, loading } = this.props.profile;
     let profilecontent;
-    if (profile === null || loading) {
+    if (profile === null || loading || !profile.user.name) {
       profilecontent = <Spinner />;
     } else {
       profilecontent = (
