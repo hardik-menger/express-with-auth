@@ -45,6 +45,39 @@ router.post(
   }
 );
 
+//@route delete api/posts/comment/:postid/:id
+//@desc delete comment with given id
+//@access private
+router.delete(
+  "/comment/delete/:id/:comment_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Post.findById(req.params.id)
+      .then(post => {
+        // Check to see if comment exists
+        if (
+          post.comments.filter(
+            comment => comment._id.toString() === req.params.comment_id
+          ).length === 0
+        ) {
+          return res
+            .status(404)
+            .json({ commentnotexists: "Comment does not exist" });
+        }
+
+        // Get remove index
+        const removeIndex = post.comments
+          .map(item => item._id.toString())
+          .indexOf(req.params.comment_id);
+
+        // Splice comment out of array
+        post.comments.splice(removeIndex, 1);
+
+        new Post(post).save().then(post => res.json(post));
+      })
+      .catch(err => res.status(404).json({ postnotfound: "No post found" }));
+  }
+);
 //@route get api/posts
 //@desc see all posts
 //@access public
@@ -156,31 +189,4 @@ router.post(
   }
 );
 
-//@route delete api/posts/comment/:postid/:id
-//@desc delete comment with given id
-//@access private
-router.delete(
-  "/comment/delete/:postid/:id",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Post.findById(req.params.postid)
-      .then(post => {
-        const removeindex = post.comments
-          .map(item => {
-            if (item.user == req.user.id) {
-              return item.id;
-            } else {
-              res.json({ notauthorized: "not the owner of this comment" });
-            }
-          })
-          .indexOf(req.params.id);
-        post.comments.splice(removeindex, 1);
-        new Post(post)
-          .save()
-          .then(post => res.json(post))
-          .catch(err => res.status(404).json({ error: "error occured" }));
-      })
-      .catch(err => res.status(404).json({ error: "error occured" }));
-  }
-);
 module.exports = router;
