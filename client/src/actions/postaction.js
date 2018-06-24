@@ -40,7 +40,6 @@ export const deletepost = id => dispatch => {
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 export const addlike = id => dispatch => {
-  dispatch(setpostloading());
   axios
     .post(`/api/posts/like/${id}`)
     .then(res => dispatch(getposts()))
