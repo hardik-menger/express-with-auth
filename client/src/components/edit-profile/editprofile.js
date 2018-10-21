@@ -17,7 +17,6 @@ class EditProfile extends Component {
       location: "",
       status: "",
       skills: "",
-      githubusername: "",
       bio: "",
       twitter: "",
       facebook: "",
@@ -165,15 +164,10 @@ class EditProfile extends Component {
       );
     }
     const options = [
-      { label: "* Select Professional Status", value: 0 },
-      { label: "Developer", value: "Developer" },
-      { label: "Junior Developer", value: "Junior Developer" },
-      { label: "Senior Developer", value: "Senior Developer" },
-      { label: "Manager", value: "Manager" },
-      { label: "Student or Learning", value: "Student or Learning" },
-      { label: "Instructor or Teacher", value: "Instructor or Teacher" },
-      { label: "Intern", value: "Intern" },
-      { label: "Other", value: "Other" }
+      { label: "* Select Status", value: 0 },
+      { label: "Author", value: "Author" },
+      { label: "Reader", value: "Reader" },
+      { label: "Both", value: "Both" }
     ];
     return (
       <div className="create-profile">
@@ -225,21 +219,13 @@ class EditProfile extends Component {
                   info="City or city & state suggested (eg. Boston, MA)"
                 />
                 <TextInput
-                  placeholder="* Skills"
+                  placeholder="* Book Names"
                   name="skills"
                   value={this.state.skills}
                   onChange={this.onChange}
                   error={errors.skills}
                   info="Please use comma separated values (eg.
-                HTML,CSS,JavaScript,PHP"
-                />
-                <TextInput
-                  placeholder="Github Username"
-                  name="githubusername"
-                  value={this.state.githubusername}
-                  onChange={this.onChange}
-                  error={errors.githubusername}
-                  info="If you want your latest repos and a Github link, include your username"
+                abc,xyz,pqr"
                 />
                 <TextAreaInput
                   placeholder="Short Bio"
